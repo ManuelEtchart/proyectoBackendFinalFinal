@@ -1,6 +1,6 @@
 import { loggerError, logger } from "../utils/logger.js";
 import MongoDB from "../DAOs/DAOMongoDB.js";
-import { io } from "../../server.js"; 
+//import { io } from "../../server.js"; 
 
 class ControllerMensajes {
     mensajesPOST = async (req,res) =>{
@@ -11,7 +11,7 @@ class ControllerMensajes {
                     email: req.body.email,
                     mensaje: req.body.mensaje
             };
-            
+
             await MongoDB.mensajes.save(mensaje)
             
             res.redirect(req.headers.referer)
