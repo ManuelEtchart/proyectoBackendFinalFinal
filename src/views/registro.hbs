@@ -1,0 +1,20 @@
+<p class="titulo">Registro</p>
+<form action="/api/usuarios/registro" method="post" class="contenedor">
+    <label>Email</label>
+    <input type="email" name="email" id="email" placeholder="ejemplo@mail.com">
+    <label>Password</label>
+    <input type="password" id="password" name="password" placeholder="Password">
+    <label>Nombre</label>
+    <input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="Nombre">
+    <label>Apellido</label>
+    <input type="text" id="apellido" name="apellido" placeholder="Apellido">
+    <label>Dirección</label>
+    <input type="text" id="direccion" name="direccion" placeholder="Dirección">
+    <label>Teléfono</label>
+    <input type="tel" name="telefono" id="phone" placeholder="Teléfono">
+    <input type="submit" class="boton" value="Registar">
+</form>
+<p class="titulo">¿Ya tienes una cuenta? Inicia sesión!</p>
+<div class="contenedor">
+    <button class="boton"><a href="/api/usuarios/login">Iniciar Sesión</a></button>
+</div>

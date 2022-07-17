@@ -1,0 +1,65 @@
+<button class="boton"><a href="/api/productos">Ver Productos</a></button>
+<button class="boton"><a href="/api/carrito">Ir a Carritos</a></button>
+<button class="boton"><a href="/api/chat">Ir al Chat</a></button>
+<button class="boton"><a href="/api/usuarios/logout">LogOut</a></button>
+<div id="cont">
+    {{#if producto.error}}
+        <p class="aviso">{{producto.error}}</p>
+    {{else}}
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Stock</th>
+                <th>Precio</th>
+                <th>Foto</th>
+            </tr>
+            <tr>
+                <td>{{producto.[0].nombre}}</td>
+                <td>{{producto.[0].descripcion}}</td>
+                <td>{{producto.[0].stock}}uni</td>
+                <td>${{producto.[0].precio}}</td>
+                <td><img src={{producto.[0].foto}}></td>
+                <td><button class="boton" id="modificar">Modificar</button></td>
+                <td><button class="boton" id="borrar">Borrar</button></td>
+            </tr>
+        </table>
+        <div id="cambios"></div>
+    {{/if}}
+</div>
+<script>
+    let modificar = document.querySelector('#modificar')
+    let borrar = document.querySelector('#borrar')
+    let cont = document.querySelector('#cont')
+
+    modificar.addEventListener('click', ()=>{
+        let cambios = document.querySelector('#cambios')
+        cambios.innerHTML = `<form>
+                                <label>Campo</label>
+                                <input type="text" placeholder="Campo" id="campo">
+                                <label>Nuevo Valor</label>
+                                <input type="text" placeholder="Nuevo Valor" id="nuevoValor">
+                            </form>
+                            <button class="boton" id="confirmar">Confirmar Cambios</button>`
+
+        let confirmar = document.querySelector('#confirmar')
+        confirmar.addEventListener('click', ()=>{
+            let nuevoValor = document.querySelector('#nuevoValor')
+            let campo = document.querySelector('#campo')
+
+            fetch(`/api/productos/{{producto.[0]._id}}?${campo.value}=${nuevoValor.value}`, {method: 'put'})
+            .then(res => res)
+            .catch(err => err)
+
+            cambios.innerHTML = `<p class="aviso">Objeto {{producto.[0]._id}} modificado</p>`
+        })
+    })
+
+    borrar.addEventListener('click', ()=>{
+        fetch('/api/productos/{{producto.[0]._id}}', {method: 'delete'})
+        .then(res => res)
+        .catch(err => {err})
+        
+        cont.innerHTML = `<p class="aviso">Objeto {{producto.[0]._id}} eliminado</p>`
+    })
+</script>

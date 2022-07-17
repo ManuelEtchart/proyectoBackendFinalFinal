@@ -1,0 +1,59 @@
+<button class="boton"><a href="/api/productos/form">Ingresar Productos</a></button>
+<button class="boton"><a href="/api/productos">Ver productos</a></button>
+<button class="boton"><a href="/api/carrito">Ir a Carritos</a></button>
+<button class="boton"><a href="/api/usuarios/logout">LogOut</a></button>
+<p class="titulo">Chat</p>
+<p class="aviso" id="avisoChat"></p>
+<form action="/api/chat" method="post" class="contenedor">
+    <label>Email</label>
+    <input type="email" name="email" id="email" placeholder="ejemplo@mail.com">
+    <label>Mensaje</label>
+    <input type="text" id="mensaje" name="mensaje" placeholder="Escribe tu mensaje">
+    <input type="submit" id="enviarMsg" class="boton" value="Enviar"> 
+</form>
+<div class="contenedor">
+    <p class="mensaje">Mensajes</p>
+    <div id="mensajes">
+        {{#if mensajes.msg}}
+            <p class="aviso">No hay mensajes</p>
+        {{else}}
+            {{#if mensajes}}
+                {{#each mensajes}}
+                    <p class="mensajeCompleto"><b class="email">{{this.email}}</b>: <i class="mensaje">{{this.mensaje}}</i></p>
+                {{/each}}
+            {{/if}}
+        {{/if}}
+    </div>
+</div>
+<!--
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io.connect();
+
+    let email = document.querySelector('#email');
+    let mensaje = document.querySelector('#mensaje');
+
+    const mensajeEnviado = document.querySelector('#enviarMsg');
+    mensajeEnviado.addEventListener('click', () => {
+
+        if(email.value === ''|| mensaje.value === ''){
+            document.querySelector('#avisoChat').innerText = 'Ingresar un e-mail o un mensaje es obligatorio';
+        }else{
+            document.querySelector('#avisoChat').innerText = '';
+
+            socket.emit('mensajeNuevo', {
+                email: email.value,
+                mensaje: mensaje.value
+            })
+        }
+    })
+
+    socket.on('mensajes', mensajes => {
+        console.log(mensajes)
+        const template = Handlebars.compile('{{#if mensajes}}{{#each mensajes}}<p class="mensajeCompleto"><b class="email">{{this.email}}</b> {{this.fecha}}: <i class="mensaje">{{this.mensaje}}</i></p>{{/each}}{{else}}<p class="aviso">No hay mensajes</p>{{/if}}');
+        const htmlGenerado = template(mensajes);
+        document.querySelector('#mensajes').innerHTML = htmlGenerado;
+    })
+</script>
+-->

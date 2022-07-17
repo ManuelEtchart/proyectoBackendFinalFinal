@@ -1,0 +1,74 @@
+<button class="boton"><a href="/api/productos/form">Ingresar Productos</a></button>
+<button class="boton"><a href="/api/carrito">Ir a Carritos</a></button>
+<button class="boton"><a href="/api/productos">Ver productos</a></button>
+<button class="boton"><a href="/api/chat">Ir al Chat</a></button>
+<button class="boton"><a href="/api/usuarios/logout">LogOut</a></button>
+<div>
+    <table>
+        <tr>
+            <th>id</th>
+        </tr>
+        <tr>
+            <td>{{carritos.[0]._id}}</td>
+        </tr>
+    </table>
+    <p id="aviso"></p>
+    <table>
+        <tr>
+            <th>Productos Agregados</th>
+            <th>Precio</th>
+        </tr>
+        {{#each carritos.[0].productos}}
+            <tr>
+                <td>{{this.nombre}}</td>
+                <td>${{this.precio}}</td>
+                <td><button class="boton" id="quitar" value={{this._id}}>Quitar</button></td>
+            </tr>
+        {{/each}}
+    </table>
+    {{#if carritos.[0].productos}}
+        <button class="boton"><a href=/api/carrito/{{carritos.[0]._id}}/pedir >PEDIR</a></button> 
+    {{/if}}       
+</div>
+{{#if productos.msg}}
+        <p class="aviso">No hay productos</p>
+{{else}}
+    {{#if productos}}
+        <div>
+            <table>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Stock</th>
+                    <th>Precio</th>
+                    <th>Foto</th>
+                </tr>
+                {{#each productos}}
+                    <tr>
+                        <td>{{this.nombre}}</td>
+                        <td>{{this.descripcion}}</td>
+                        <td>{{this.stock}}uni</td>
+                        <td>${{this.precio}}</td>
+                        <td><img src={{this.foto}}></td>
+                        <td>
+                            <form action=/api/carrito/{{../carritos.[0]._id}}/productos/{{this._id}} method="post">
+                                <input type="submit" value="Agregar a Carrito" class="boton">
+                            </form>
+                        </td>
+                    </tr>
+                {{/each}}
+            </table>       
+        </div>
+    {{/if}}
+{{/if}}
+<script>
+    let quitar = document.querySelector('#quitar')
+
+    quitar.addEventListener('click', ()=>{
+        fetch(`/api/carrito/{{carritos.[0]._id}}/productos/${quitar.value}`, {method: 'delete'})
+        .then(res => res)
+        .catch(err => err)
+
+        document.location.reload()
+    })
+</script>
