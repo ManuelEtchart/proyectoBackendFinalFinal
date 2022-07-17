@@ -50,7 +50,6 @@
     })
 
     socket.on('mensajes', mensajes => {
-        console.log(mensajes)
         const template = Handlebars.compile('{{#if mensajes}}{{#each mensajes}}<p class="mensajeCompleto"><b class="email">{{this.email}}</b> {{this.fecha}}: <i class="mensaje">{{this.mensaje}}</i></p>{{/each}}{{else}}<p class="aviso">No hay mensajes</p>{{/if}}');
         const htmlGenerado = template(mensajes);
         document.querySelector('#mensajes').innerHTML = htmlGenerado;

@@ -6,7 +6,7 @@ class ControllerCarrito {
     carritosGET = async (req,res)=>{
         logger.info(`ruta ${req.url} metodo ${req.method} implementada`)
         try {
-            res.render('carritos', {carritos: await MongoDB.carritos.getAll(), mensajes: await MongoDB.mensajes.getAll(), datosUsuario: req.user})
+            res.render('carritos', {carritos: await MongoDB.carritos.getAll(), datosUsuario: req.user})
         } catch (error) {
             loggerError.error(`${error} - Hubo un error en ruta ${req.url} metodo ${req.method} implementada`)
         }
@@ -42,9 +42,9 @@ class ControllerCarrito {
         logger.info(`ruta ${req.url} metodo ${req.method} implementada`)
         try {
             if(req.params.id === undefined){
-                res.render('carritos', {carritos: await MongoDB.carritos.getAll(), mensajes: await MongoDB.mensajes.getAll(), datosUsuario: req.user})
+                res.render('carritos', {carritos: await MongoDB.carritos.getAll(), datosUsuario: req.user})
             }else{
-                res.render('carrito', {carritos: await MongoDB.carritos.getById(req.params.id), mensajes: await MongoDB.mensajes.getAll(), productos: await MongoDB.productos.getAll(), datosUsuario: req.user})
+                res.render('carrito', {carritos: await MongoDB.carritos.getById(req.params.id), productos: await MongoDB.productos.getAll(), datosUsuario: req.user})
             }
         } catch (error) {
             loggerError.error(`${error} - Hubo un error en ruta ${req.url} metodo ${req.method} implementada`)

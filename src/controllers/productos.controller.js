@@ -6,7 +6,7 @@ class ControllerProductos{
     productosFormGET = async (req,res)=>{
         logger.info(`ruta ${req.url} metodo ${req.method} implementada`)
         try {
-            res.render('productosForm', {mensajes: await MongoDB.mensajes.getAll(), datosUsuario: req.user});
+            res.render('productosForm', {datosUsuario: req.user});
         } catch (error) {
             loggerError.error(`${error} - Hubo un error en ruta ${req.url} metodo ${req.method} implementada`)
         }
@@ -16,9 +16,9 @@ class ControllerProductos{
         logger.info(`ruta ${req.url} metodo ${req.method} implementada`)
         try {
             if (req.params.id === undefined) {
-                res.render('inicio', {productos: await MongoDB.productos.getAll(), mensajes: await MongoDB.mensajes.getAll(), datosUsuario: req.user})
+                res.render('inicio', {productos: await MongoDB.productos.getAll(), datosUsuario: req.user})
             }else{
-                res.render('producto', {producto: await MongoDB.productos.getById(req.params.id), mensajes: await MongoDB.mensajes.getAll(), datosUsuario: req.user})
+                res.render('producto', {producto: await MongoDB.productos.getById(req.params.id), datosUsuario: req.user})
             } 
         } catch (error) {
             loggerError.error(`${error} - Hubo un error en ruta ${req.url} metodo ${req.method} implementada`)

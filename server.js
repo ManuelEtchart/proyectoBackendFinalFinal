@@ -5,8 +5,8 @@ import cluster from 'cluster';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 dotenv.config()
-import {createServer} from 'http';
-import {Server} from 'socket.io'
+//import {createServer} from 'http';
+//import {Server} from 'socket.io'
 import hbs from 'express-handlebars';
 import { logger, loggerError } from './src/utils/logger.js';
 import ProductosRouter from './src/routes/productos.routes.js';
@@ -52,6 +52,18 @@ if(MODO_CLUSTER && cluster.isMaster) {
     app.use('/api/productos', (new ProductosRouter()).start());
     app.use('/api/usuarios', (new UsuariosRouter()).start())
     
+    /*
+    io.on('connection', async (socket) => {
+        console.log('Nuevo cliente conectado');
+
+        socket.emit('mensajes', {mensajes: await MongoDB.mensajes.getAll()});
+
+        socket.on('mensajeNuevo', async (mensaje) => {     
+            await MongoDB.mensajes.save(mensaje)
+            io.sockets.emit('mensajes', {mensajes: await MongoDB.mensajes.getAll()});
+        })
+    })
+    */
 
     app.get('/', (req,res)=>{
         logger.info(`ruta ${req.url} metodo ${req.method} implementada`)
